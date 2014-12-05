@@ -19,6 +19,6 @@ Set CFROOT to the install directory of your ColdFusion server. e.g. export CFROO
 Lookup the encrypted password in $CFROOT/lib/neo-datasource.xml, then run the compile Java code with the correct classpath.
 The arguments are the path to your ColdFusion 11 install, and the encrypted password.
 
-   java -classpath $CFROOT/lib/cf-logging.jar:$CFROOT/lib/log4j-1.2.15.jar:$CFROOT/lib/cfusion.jar:. decryptCf11Dsn $CFROOT sdgsdgsdgsdg=
+    java -classpath $CFROOT/lib/cf-logging.jar:$CFROOT/lib/log4j-1.2.15.jar:$CFROOT/lib/cfusion.jar:. decryptCf11Dsn $CFROOT sdgsdgsdgsdg=
 
 You may need to run this sudo or as root, depending on your server.
