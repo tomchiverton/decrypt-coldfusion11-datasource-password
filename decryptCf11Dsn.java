@@ -1,21 +1,45 @@
 import coldfusion.util.PasswordUtils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.FileInputStream;
+import java.io.*;
 import java.util.Properties;
+
+import fr.prados.xpath4sax.*;
+
+import org.xml.sax.*;
+
+import javax.xml.parsers.*;
 
 public class decryptCf11Dsn {
 
-public static void main(String[] args) throws FileNotFoundException,IOException {
+static String pass="";
+
+public static void main(String[] args) throws FileNotFoundException,IOException,XPathSyntaxException,ParserConfigurationException,SAXException{
 
 	String pth=args[0] + File.separatorChar + "lib" + File.separatorChar + "seed.properties";
 	File seedFile = new File( pth );
 	Properties prop = new Properties();
 	prop.load(new FileInputStream(seedFile));
 
-    String str= PasswordUtils.decryptPassword( args[1], prop.getProperty("seed") ); //encryption method string probably goes here
+	if( args[1].indexOf("-p") == -1 ){
+	     XPathXMLHandler handler=new XPathXMLHandler()
+        {
+            @Override
+            public void findXpathNode(SAXXPath xpath, Object node)
+            {
+            	/*System.out.println("nodestr="+node);
+            	System.out.println("nodeis ="+node.getClass().getName());// expect fr.prados.xpath4sax.ElementWrapper*/
+            	pass= ((ElementWrapper)node).getFirstChild().getTextContent();
+            }
+        };
+
+		handler.setXPaths(XPathXMLHandler.toXPaths("//var[@name='"+args[1]+"']/struct/var[@name='password']/string"));
+		SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+		parser.parse(new FileInputStream( new File( args[0] + File.separatorChar + "lib" + File.separatorChar + "neo-datasource.xml" ) ) , handler);
+	}else{
+		pass=args[2];
+	}
+
+    String str= PasswordUtils.decryptPassword( pass, prop.getProperty("seed") ); //encryption method string probably goes here
 
     System.out.println( str );
 }
