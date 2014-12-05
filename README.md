@@ -10,15 +10,20 @@ compile
 =======
 Set CFROOT to the install directory of your ColdFusion server. e.g. export CFROOT=/opt/cf11/cfusion
 
-    javac decryptCf11Dsn.java -classpath $CFROOT/lib/cfusion.jar
+    javac decryptCf11Dsn.java -classpath $CFROOT/lib/cfusion.jar:XPath4SAX-0.0.1-SNAPSHOT.jar
 
 usage
 =====
 Set CFROOT to the install directory of your ColdFusion server. e.g. export CFROOT=/opt/cf11/cfusion
 
-Lookup the encrypted password in $CFROOT/lib/neo-datasource.xml, then run the compiled Java code with the correct classpath.
-The arguments are the path to your ColdFusion 11 install, and the encrypted password.
+Run the compile Java code with the correct classpath.
 
-    java -classpath $CFROOT/lib/cf-logging.jar:$CFROOT/lib/log4j-1.2.15.jar:$CFROOT/lib/cfusion.jar:. decryptCf11Dsn $CFROOT sdgsdgsdgsdg=
+The arguments are the path to your ColdFusion 11 install, and then the datasource name.
+
+    java -classpath $CFROOT/lib/cf-logging.jar:$CFROOT/lib/log4j-1.2.15.jar:$CFROOT/lib/cfusion.jar:$CFROOT/lib/xercesImpl.jar:XPath4SAX-0.0.1-SNAPSHOT.jar:. decryptCf11Dsn $CFROOT someDataSourceName
+
+You can also lookup the encrypted password in $CFROOT/lib/neo-datasource.xml, then the arguments are the path to your ColdFusion install, a '-p' and then the encrypted string.
+
+    java -classpath $CFROOT/lib/cf-logging.jar:$CFROOT/lib/log4j-1.2.15.jar:$CFROOT/lib/cfusion.jar:$CFROOT/lib/xercesImpl.jar:XPath4SAX-0.0.1-SNAPSHOT.jar:. decryptCf11Dsn $CFROOT -p sdgsdgsdgsdg=
 
 You may need to run this sudo or as root, depending on your server.
