@@ -1,4 +1,4 @@
-decrypt-coldfusion11-datasource-password
+Decrypting Adobe Coldfusion 11 datasource passwords
 ========================================
 
 With Coldfusion 9 and earlier, it was easy to recover database passwords from the ColdFusion server configuration. This was useful when copying datasources between servers, or when the password has been forgotten or is randomly generated and is needed for another tool.
