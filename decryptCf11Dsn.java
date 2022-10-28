@@ -26,8 +26,6 @@ public static void main(String[] args) throws FileNotFoundException,IOException,
             @Override
             public void findXpathNode(SAXXPath xpath, Object node)
             {
-            	/*System.out.println("nodestr="+node);
-            	System.out.println("nodeis ="+node.getClass().getName());// expect fr.prados.xpath4sax.ElementWrapper*/
             	pass= ((ElementWrapper)node).getFirstChild().getTextContent();
             }
         };
@@ -39,7 +37,7 @@ public static void main(String[] args) throws FileNotFoundException,IOException,
 		pass=args[2];
 	}
 
-    String str= PasswordUtils.decryptPassword( pass, prop.getProperty("seed") ); //encryption method string probably goes here
+    String str= PasswordUtils.decryptPassword( pass, prop.getProperty("seed") );
 
     System.out.println( str );
 }
